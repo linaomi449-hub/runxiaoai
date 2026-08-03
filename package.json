@@ -1,0 +1,14 @@
+{
+  "name": "runxiaoai-assistant",
+  "version": "1.0.0",
+  "description": "润小爱·产品智能咨询助手 - 连接腾讯元器的保险智能体",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["insurance", "ai", "chatbot", "yuanqi"],
+  "license": "MIT"
+}
