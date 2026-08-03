@@ -1,0 +1,11 @@
+# 密钥文件 - 绝不要提交到 GitHub
+.env
+
+# 测试日志
+srv.log
+*.log
+
+# 系统文件
+.DS_Store
+Thumbs.db
+node_modules/
