@@ -9,8 +9,8 @@ body{margin:0;display:flex;align-items:center;justify-content:center;min-height:
 .card{background:#fff;border-radius:20px;padding:32px 28px;box-shadow:0 8px 32px rgba(200,112,60,.12);text-align:center;max-width:320px}
 .card h1{font-size:18px;font-weight:700;color:#3d2e1f;margin:0 0 4px}
 .card p{font-size:13px;color:#8a7a68;margin:0 0 20px}
-#qrcode{display:inline-block;margin:0 auto;padding:12px;border:1px solid #f0e8dc;border-radius:12px}
-.url{margin-top:16px;font-size:11px;color:#bbb;word-break:break-all;max-width:240px;margin:12px auto 0}
+.qr-img{width:220px;height:220px;border:1px solid #f0e8dc;border-radius:12px;padding:8px}
+.url{font-size:11px;color:#bbb;word-break:break-all;max-width:240px;margin:12px auto 0}
 .hint{font-size:11px;color:#c8703c;margin-top:8px}
 </style>
 </head>
@@ -18,20 +18,9 @@ body{margin:0;display:flex;align-items:center;justify-content:center;min-height:
 <div class="card">
 <h1>润小爱 · 产品智能咨询助手</h1>
 <p>微信扫码即可咨询</p>
-<div id="qrcode"></div>
-<div class="url">https://yuanqi.tencent.com/webim/#/chat/bEGCPj?appid=2083169587444756736&experience=true</div>
+<img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&color=3d2e1f&bgcolor=ffffff&data=https%3A%2F%2Fswolvy.com%2F8FoeQCxRWTIHiIHD" alt="润小爱二维码">
+<div class="url">https://swolvy.com/8FoeQCxRWTIHiIHD</div>
 <div class="hint">手机微信扫码后直接打开智能体对话</div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script>
-new QRCode(document.getElementById("qrcode"),{
-  text:"https://yuanqi.tencent.com/webim/#/chat/bEGCPj?appid=2083169587444756736&experience=true",
-  width:200,
-  height:200,
-  colorDark:"#3d2e1f",
-  colorLight:"#ffffff",
-  correctLevel:QRCode.CorrectLevel.H
-});
-</script>
 </body>
 </html>
