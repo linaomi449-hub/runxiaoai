@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>润小爱 · 产品智能咨询助手</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf7f2;--card:#fffdf9;--ink:#3d2e1f;--ink-soft:#6b5a48;--ink-mute:#9a8b78;
+  --accent:#c8703c;--accent-soft:#e8b899;--line:#e8dccd;--gold:#d4a942;
+  --teal:#5a8f8c;--rose:#c47a7a;--slate:#5a6f8c;--green:#7a9a6e;
+  --user-bubble:#c8703c;--bot-bubble:#fffdf9;
+  --shadow:0 2px 12px rgba(61,46,31,.08);--shadow-lg:0 8px 32px rgba(61,46,31,.12);
+  --radius:16px;
+  --avatar-img:url(data:image/jpeg;base64,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);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;height:100vh;height:100dvh;
+  max-width:520px;margin:0 auto;position:relative;
+  box-shadow:var(--shadow-lg);
+}
+
+/* ===== 顶部导航 ===== */
+.navbar{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;background:linear-gradient(135deg,#c8703c 0%,#d4884a 50%,#d4a942 100%);
+  color:#fff;flex-shrink:0;position:relative;z-index:10;
+  box-shadow:0 2px 12px rgba(200,112,60,.2);
+}
+.nav-avatar{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:var(--avatar-img);background-size:cover;background-position:center;
+  border:2px solid rgba(255,255,255,.6);
+  box-shadow:0 1px 6px rgba(0,0,0,.15);
+}
+.nav-avatar::before{display:none}
+.nav-avatar::after{display:none}
+.nav-info{flex:1;min-width:0}
+.nav-title{font-size:15px;font-weight:700;letter-spacing:.5px}
+.nav-status{font-size:11px;opacity:.85;display:flex;align-items:center;gap:4px}
+.nav-status .dot{width:6px;height:6px;border-radius:50%;background:#7ec;box-shadow:0 0 6px #7ec}
+.btn-human{
+  flex-shrink:0;padding:7px 14px;border-radius:20px;
+  background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:4px;
+}
+.btn-human:hover{background:rgba(255,255,255,.3)}
+.btn-human:active{transform:scale(.95)}
+
+/* ===== 对话主体 ===== */
+.chat-body{
+  flex:1;overflow-y:auto;overflow-x:hidden;
+  padding:16px 14px 8px;
+  display:flex;flex-direction:column;gap:14px;
+  scroll-behavior:smooth;
+}
+.chat-body::-webkit-scrollbar{width:4px}
+.chat-body::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
+
+/* ===== 欢迎区 ===== */
+.welcome-box{
+  text-align:center;padding:20px 16px 16px;
+}
+.welcome-avatar{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 12px;
+  background:var(--avatar-img);background-size:cover;background-position:center;
+  box-shadow:0 6px 20px rgba(200,112,60,.25);
+}
+.welcome-avatar::before{display:none}
+.welcome-avatar::after{display:none}
+.welcome-title{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.welcome-desc{font-size:13px;color:var(--ink-soft);line-height:1.8;max-width:340px;margin:0 auto}
+
+/* ===== 欢迎区轮播标语 ===== */
+.ticker-wrap{
+  max-width:340px;margin:6px auto 0;height:44px;overflow:hidden;
+  position:relative;border-radius:10px;
+  background:linear-gradient(135deg,rgba(232,160,74,.06),rgba(200,112,60,.04));
+  border:1px solid rgba(232,160,74,.15);
+}
+.ticker-track{
+  position:relative;width:100%;
+}
+.ticker-item{
+  position:absolute;top:0;left:0;width:100%;
+  font-size:12.5px;color:var(--ink-soft);line-height:1.5;
+  padding:6px 14px;text-align:center;
+  opacity:0;transform:translateY(100%);
+  transition:opacity .5s ease,transform .5s ease;
+}
+.ticker-item.active{opacity:1;transform:translateY(0)}
+.ticker-item.exit{opacity:0;transform:translateY(-100%)}
+.ticker-item .ticker-tag{
+  display:inline-block;font-size:10px;font-weight:700;
+  padding:1px 6px;border-radius:8px;margin-right:5px;
+  background:linear-gradient(135deg,#e8a04a,#c8703c);color:#fff;
+  vertical-align:middle;
+}
+.ticker-item .ticker-num{font-weight:700;color:var(--accent);font-size:14px}
+.ticker-item .ticker-pct{font-weight:700;color:#5a8a6e;font-size:14px}
+
+/* ===== 快捷问题 ===== */
+.quick-box{
+  display:flex;flex-wrap:wrap;gap:8px;padding:0 4px 8px;justify-content:center;
+}
+.qq-chip{
+  padding:8px 14px;border-radius:20px;background:var(--card);
+  border:1px solid var(--accent-soft);color:var(--accent);
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:5px;line-height:1.4;
+}
+.qq-chip:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.qq-chip:active{transform:scale(.95)}
+.qq-icon{font-size:14px;line-height:1}
+
+/* ===== 消息气泡 ===== */
+.msg-row{display:flex;gap:8px;max-width:100%;animation:fadeIn .3s ease}
+.msg-row.user{flex-direction:row-reverse}
+.msg-avatar{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;margin-top:2px;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.msg-avatar.bot{
+  background:var(--avatar-img);background-size:cover;background-position:center;
+}
+.msg-avatar.bot::before{display:none}
+.msg-avatar.bot::after{display:none}
+.msg-avatar.user{background:var(--slate);color:#fff;font-weight:700;font-size:13px}
+.msg-content{display:flex;flex-direction:column;gap:4px;max-width:78%}
+.msg-bubble{
+  padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.7;
+  word-break:break-word;white-space:pre-wrap;
+}
+.msg-row.user .msg-bubble{
+  background:var(--user-bubble);color:#fff;
+  border-bottom-right-radius:4px;
+}
+.msg-row.bot .msg-bubble{
+  background:var(--bot-bubble);color:var(--ink);
+  border:1px solid var(--line);
+  border-bottom-left-radius:4px;
+  box-shadow:var(--shadow);
+}
+.msg-bubble strong{font-weight:700}
+.msg-bubble .hl{color:var(--accent);font-weight:700}
+.msg-bubble table{width:100%;border-collapse:collapse;margin:6px 0;font-size:12px}
+.msg-bubble th,.msg-bubble td{border:1px solid var(--line);padding:4px 6px;text-align:center}
+.msg-bubble th{background:var(--bg);font-weight:700;color:var(--ink-soft)}
+.msg-bubble ul{padding-left:18px;margin:4px 0}
+.msg-bubble li{margin:2px 0}
+
+/* ===== 来源标注 ===== */
+.msg-source{
+  font-size:11px;color:var(--teal);padding:2px 4px 0;
+  display:flex;align-items:center;gap:4px;
+}
+.msg-source.warn{color:var(--rose)}
+.msg-source-icon{font-size:11px;flex-shrink:0}
+
+/* ===== 回答内链接 ===== */
+.action-link{
+  display:inline-block;margin:6px 0;padding:8px 24px;
+  background:#e8f0fe;border:2px solid #1a73e8;border-radius:24px;
+  color:#1a73e8 !important;font-size:14px;font-weight:700;
+  text-decoration:none;cursor:pointer;font-family:inherit;outline:none;
+  box-shadow:0 2px 8px rgba(26,115,232,.2);
+  transition:all .15s;
+}
+.action-link:hover{background:#1a73e8;color:#fff !important;box-shadow:0 4px 14px rgba(26,115,232,.35)}
+.action-link:active{transform:scale(.97)}
+
+/* ===== 合规提示 ===== */
+.msg-compliance{
+  margin-top:4px;padding:6px 10px;border-radius:8px;
+  background:rgba(196,122,122,.08);border:1px solid rgba(196,122,122,.2);
+  font-size:12px;color:var(--rose);line-height:1.5;
+}
+.msg-compliance.transfer{
+  background:rgba(90,111,140,.08);border-color:rgba(90,111,140,.2);color:var(--slate);
+}
+
+/* ===== 追问建议 ===== */
+.followup-box{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.fu-chip{
+  padding:5px 10px;border-radius:14px;background:rgba(90,143,140,.08);
+  border:1px solid rgba(90,143,140,.2);color:var(--teal);
+  font-size:12px;cursor:pointer;transition:all .2s;
+}
+.fu-chip:hover{background:var(--teal);color:#fff}
+.fu-chip:active{transform:scale(.95)}
+
+/* ===== 打字动画 ===== */
+.typing-dots{display:flex;gap:4px;padding:14px}
+.typing-dots span{
+  width:8px;height:8px;border-radius:50%;background:var(--ink-mute);
+  animation:typing 1.4s infinite;
+}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== 输入区 ===== */
+.input-area{
+  flex-shrink:0;padding:10px 14px 8px;background:var(--card);
+  border-top:1px solid var(--line);
+}
+.input-row{display:flex;gap:8px;align-items:flex-end}
+.input-box{
+  flex:1;padding:10px 14px;border-radius:22px;border:1px solid var(--line);
+  background:var(--bg);font-size:14px;color:var(--ink);
+  resize:none;max-height:100px;min-height:42px;line-height:1.6;
+  font-family:inherit;outline:none;transition:border-color .2s;
+}
+.input-box:focus{border-color:var(--accent-soft)}
+.input-box::placeholder{color:var(--ink-mute)}
+.btn-send{
+  width:42px;height:42px;border-radius:50%;border:none;
+  background:var(--accent);color:#fff;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .2s;
+}
+.btn-send:hover{background:#b86030}
+.btn-send:active{transform:scale(.9)}
+.btn-send:disabled{background:var(--ink-mute);cursor:not-allowed}
+.sensitive-tip{
+  text-align:center;font-size:11px;color:var(--ink-mute);
+  padding:6px 0 2px;
+}
+.sensitive-tip span{color:var(--rose)}
+
+/* ===== 转人工弹窗 ===== */
+.modal-mask{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(61,46,31,.4);backdrop-filter:blur(2px);
+  display:none;align-items:center;justify-content:center;z-index:100;
+  animation:fadeIn .2s ease;
+}
+.modal-mask.show{display:flex}
+.modal-card{
+  background:var(--card);border-radius:20px;padding:24px 20px;
+  max-width:340px;width:90%;text-align:center;
+  box-shadow:var(--shadow-lg);animation:modalIn .3s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.modal-icon{
+  width:52px;height:52px;border-radius:50%;margin:0 auto 12px;
+  background:rgba(90,111,140,.1);display:flex;align-items:center;justify-content:center;
+  font-size:24px;
+}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.modal-desc{font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:16px}
+.modal-contacts{
+  background:var(--bg);border-radius:12px;padding:12px;margin-bottom:16px;
+  text-align:left;font-size:13px;line-height:2;
+}
+.modal-contacts strong{color:var(--accent)}
+.modal-form{margin-bottom:16px}
+.modal-input{
+  width:100%;padding:10px 14px;border:2px solid #e0d6c8;border-radius:10px;
+  font-size:14px;font-family:inherit;background:#fff;color:#333;
+  transition:border-color .2s;box-sizing:border-box;
+}
+.modal-input:focus{outline:none;border-color:#1a73e8}
+.modal-form-hint{font-size:12px;color:var(--rose);margin-top:6px;min-height:16px;text-align:left}
+.modal-form-hint.success{color:var(--teal)}
+.modal-btns{display:flex;gap:10px}
+.modal-btn{
+  flex:1;padding:10px;border-radius:10px;border:none;font-size:14px;
+  font-weight:600;cursor:pointer;transition:all .2s;
+}
+.modal-btn.primary{background:var(--accent);color:#fff}
+.modal-btn.primary:hover{background:#b86030}
+.modal-btn.secondary{background:var(--bg);color:var(--ink-soft);border:1px solid var(--line)}
+.modal-btn:active{transform:scale(.95)}
+
+/* ===== 敏感信息警告 ===== */
+.alert-toast{
+  position:fixed;top:60px;left:50%;transform:translateX(-50%);
+  background:var(--rose);color:#fff;padding:10px 20px;border-radius:12px;
+  font-size:13px;z-index:200;box-shadow:var(--shadow-lg);
+  display:none;animation:alertIn .3s ease;
+}
+.alert-toast.show{display:block}
+@keyframes alertIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* ===== 响应式 ===== */
+@media(max-width:520px){
+  body{box-shadow:none}
+  .msg-content{max-width:82%}
+}
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<header class="navbar">
+  <div class="nav-avatar"></div>
+  <div class="nav-info">
+    <div class="nav-title">润小爱 · 智能咨询助手</div>
+    <div class="nav-status"><span class="dot"></span>在线 · 润爱家产品咨询</div>
+  </div>
+  <button class="btn-human" onclick="openTransferModal()">转人工</button>
+</header>
+
+<!-- 对话主体 -->
+<div class="chat-body" id="chatBody">
+  <!-- 欢迎区 -->
+  <div class="welcome-box">
+    <div class="welcome-avatar"></div>
+    <div class="welcome-title">您好！我是润小爱</div>
+    <div class="welcome-desc">您的润爱家保险咨询助手。我可以为您解答保障方案、投保条件、理赔流程等常见问题。请问有什么可以帮您？</div>
+    <!-- 轮播标语：理赔月报数据亮点 -->
+    <div class="ticker-wrap" id="tickerWrap">
+      <div class="ticker-track" id="tickerTrack">
+        <div class="ticker-item active">
+          <span class="ticker-tag">7月理赔</span>肺癌保障 <span class="ticker-num">53</span> 人 · 甲状腺癌 <span class="ticker-num">34</span> 人 · 胃癌 <span class="ticker-num">24</span> 人
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-tag">年龄分布</span>61岁及以上关怀人数占 <span class="ticker-pct">47%</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-tag">年龄分布</span>46-60岁关怀人数占 <span class="ticker-pct">22%</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-tag">年龄分布</span>31-45岁关怀人数占 <span class="ticker-pct">20%</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-tag">7月理赔</span>累计为 <span class="ticker-num">111</span> 个家庭提供重疾保障
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 快捷问题 -->
+  <div class="quick-box" id="quickBox">
+    <div class="qq-chip" onclick="sendQuick('保障方案有哪些？保费多少钱？')"><span class="qq-icon">📋</span>保障方案与保费</div>
+    <div class="qq-chip" onclick="sendQuick('谁能买？年龄有什么要求？')"><span class="qq-icon">👤</span>投保资格</div>
+    <div class="qq-chip" onclick="sendQuick('有什么保障？保什么病？')"><span class="qq-icon">🛡️</span>保障范围</div>
+    <div class="qq-chip" onclick="sendQuick('理赔怎么操作？需要什么材料？')"><span class="qq-icon">📝</span>理赔指南</div>
+    <div class="qq-chip" onclick="sendQuick('健康告知要注意什么？')"><span class="qq-icon">❤️</span>健康告知</div>
+    <div class="qq-chip" onclick="sendQuick('等待期是多久？')"><span class="qq-icon">⏰</span>等待期</div>
+  </div>
+  <!-- 消息列表 -->
+  <div id="messages"></div>
+</div>
+
+<!-- 输入区 -->
+<div class="input-area">
+  <div class="input-row">
+    <textarea class="input-box" id="inputBox" rows="1" placeholder="请输入您的问题..." onkeydown="handleKeyDown(event)" oninput="autoResize(this)"></textarea>
+    <button class="btn-send" id="btnSend" onclick="sendMessage()">➤</button>
+  </div>
+  <div class="sensitive-tip"><span>🔒</span> 请勿输入身份证号、银行卡号、病历等敏感信息</div>
+</div>
+
+<!-- 转人工弹窗 -->
+<div class="modal-mask" id="transferModal">
+  <div class="modal-card">
+    <div class="modal-icon">👤</div>
+    <div class="modal-title">转接人工服务</div>
+    <div class="modal-desc">当前问题需要专业客服进一步为您解答，将为您转接人工服务。<br><br>请填写您的微信号，客服将在收到信息后与您联系；如已有客服联系方式，也可直接联系人工客服。</div>
+    <div class="modal-form">
+      <input type="text" id="wechatInput" class="modal-input" placeholder="请输入您的微信号" maxlength="50">
+      <div class="modal-form-hint" id="formHint"></div>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-btn secondary" onclick="closeTransferModal()">取消</button>
+      <button class="modal-btn primary" id="submitWechatBtn" onclick="submitWechat()">提交</button>
+    </div>
+    <div class="modal-contacts" style="display:none">
+      <div>📞 <strong>华润经纪服务热线</strong>：400-879-8988</div>
+      <div>🕐 <strong>服务时间</strong>：周一至周五 9:00-17:30</div>
+    </div>
+  </div>
+</div>
+
+<!-- 敏感信息警告 -->
+<div class="alert-toast" id="alertToast"></div>
+
+<script>
+// ============================================================
+// 运行模式配置
+// ============================================================
+const YUANQI_ENDPOINT = "https://yuanqi.tencent.com/openapi/v1/agent/chat/completions";
+const YUANQI_APPKEY = "GwXU16RbCNVny0d1ulIvE5DAaDekDd7b";
+const YUANQI_APPID  = "2083169587444756736";
+
+// 从元器响应中提取文本（兼容字符串和数组格式）
+function extractYuanqiText(content){
+  if(typeof content==="string")return content;
+  if(Array.isArray(content))return content.map(function(c){return c&&c.text||"";}).join("");
+  return "";
+}
+
+// 对话历史（用于元器API多轮对话）
+const conversationHistory = [];
+
+// 调用元器API
+async function callBackend(text){
+  conversationHistory.push({role:"user",text:text});
+  var resp=await fetch(YUANQI_ENDPOINT,{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+YUANQI_APPKEY
+    },
+    body:JSON.stringify({
+      assistant_id:YUANQI_APPID,
+      user_id:"runxiaobao_web",
+      stream:false,
+      messages:conversationHistory.map(function(m){
+        return {role:m.role,content:[{type:"text",text:m.text}]};
+      })
+    })
+  });
+  if(!resp.ok)throw new Error("HTTP "+resp.status);
+  var data=await resp.json();
+  var choice=data&&data.choices&&data.choices[0];
+  var reply=choice?extractYuanqiText(choice.message&&choice.message.content):"";
+  conversationHistory.push({role:"assistant",text:reply});
+  return reply;
+}
+
+// ============================================================
+// 知识库 KNOWLEDGE_BASE
+// ============================================================
+const KNOWLEDGE_BASE = [
+  // ===== 投保说明 enrollment =====
+  {id:"KB-001",cat:"enrollment",title:"投保年龄",
+   keywords:["年龄","几岁","多大","小孩","老人","孩子能买","年龄限制","投保年龄","28天","80岁","80周岁"],
+   synonyms:[["孩子","子女","宝宝","小孩","未成年"],["老人","父母","长辈","退休","老年人"]],
+   content:"主被保险人为18-80周岁的华润在职员工。连带被保险人为18-80周岁的主被保险人的配偶、父母、配偶父母，及出生满28天并已健康出院的子女。",
+   source:"第一部分 投保说明 > 第3条 投保年龄",
+   followUps:["KB-002","KB-015"]},
+
+  {id:"KB-002",cat:"enrollment",title:"保障对象",
+   keywords:["谁能买","保障对象","华润员工","家属","配偶","子女","父母","岳父母","谁能投保","投保资格","被保险人"],
+   synonyms:[["家属","家人","亲人"],["岳父母","配偶父母","公公婆婆","丈人丈母"]],
+   content:"保障对象为华润集团及其关联机构在职员工及其配偶、子女、父母和配偶父母。\n\n• 已婚员工 → 可选择为配偶、子女、父母、岳父母投保\n• 未婚员工 → 可选择为父母投保\n• 员工及家属均需通过“健康知会”接受投保\n\n此范围外的其他人员投保无效，保险公司有权拒保。",
+   source:"第一部分 投保说明 > 第2条 保障对象",
+   followUps:["KB-001","KB-004"]},
+
+  {id:"KB-003",cat:"enrollment",title:"投保模式",
+   keywords:["什么时候","限时","生效","次月","投保模式","开放","投保时间","生效时间","什么时候生效"],
+   synonyms:[],
+   content:"投保模式为限时开放投保，次月1日生效。投保后保障期限为一年。\n\n当月投保“润爱家”保障，次月1日开始生效。请留意投保开放时间。",
+   source:"第一部分 投保说明 > 第4条 投保模式",
+   followUps:["KB-008","KB-033"]},
+
+  {id:"KB-004",cat:"enrollment",title:"投保规则",
+   keywords:["投保规则","主被保险人","连带","配偶参保","规则","怎么投保规则","投保条件"],
+   synonyms:[],
+   content:"投保规则约定：\n\n• 员工本人作为主被保险人，员工子女、配偶、父母可作为连带被保险人\n• 员工配偶参保，员工配偶父母方可投保\n• 基础计划按照被保险人年龄匹配进行投保，若没有按照规则，后续无法获赔\n• 每人仅能投保一份",
+   source:"第一部分 投保说明 > 第5条 投保规则",
+   followUps:["KB-002","KB-013"]},
+
+  {id:"KB-005",cat:"enrollment",title:"健康告知",
+   keywords:["健康告知","健康知会","健康情况","告知","体检","要不要体检"],
+   synonyms:[],
+   content:"本保险为华润团体投保保险，仅限华润员工及其家属参与，其他人投保无效。\n\n投保时需进行健康告知（健康知会），员工及家属均需通过健康告知接受投保。\n\n参保条件宽松：28天-80周岁华润员工及家属均可投保，无需体检。",
+   source:"第一部分 投保说明 > 第6条 健康告知 + 第二部分 产品特色",
+   complianceFlags:["health"],
+   followUps:["KB-006","KB-007"]},
+
+  {id:"KB-006",cat:"enrollment",title:"不能投保的疾病",
+   keywords:["不能买","拒保","哪些病不能买","不能投保","禁止投保","不符合","什么病不能买"],
+   synonyms:[["不能买","不能投保","买不了","拒保","不符合条件"]],
+   content:"如投保前已患以下疾病，不能投保（投保无效，保险公司不承担保险责任）：\n\n• 本承保方案所列100种重大疾病及30种轻症（不含甲状腺癌）\n• 心血管、肺部疾病：合并并发症的严重糖尿病、慢性阻塞性肺病、肺气肿\n• 精神类疾病：癫痫、精神分裂症、阿尔茨海默病、帕金森病\n• 其他：器官移植、瘫痪、系统性红斑狼疮、酒精依赖、使用成瘾性药物",
+   source:"第一部分 投保说明 > 6.2 不能投保的疾病",
+   complianceFlags:["health"],
+   followUps:["KB-007","KB-005"]},
+
+  {id:"KB-007",cat:"enrollment",title:"既往症责任免除",
+   keywords:["既往症","免责","已有疾病","历史病","既往症免除","责任免除"],
+   synonyms:[["既往症","已有疾病","历史病","原来就有的病"]],
+   content:"因投保前已患疾病（即既往症）及其并发症或已有残疾导致的保险事故，责任免除。\n\n严重既往症包括：投保时正患病住院及全休/半休；甲状腺癌、原位癌、良性脑肿瘤；脑梗死、脑血管畸形等脑疾病；器质性心脏病；肺纤维化、哮喘、肝炎、肝硬化等内脏疾病；糖尿病、高血压（未服药状态下收缩压≥160mmHg或舒张压≥100mmHg）等。\n\n不存在不能投保疾病的，保险人承担一般既往症，不承担首次投保前罹患的严重既往症及其并发症导致的重大疾病责任。",
+   source:"第一部分 投保说明 > 6.3 既往症责任免除",
+   complianceFlags:["health"],
+   followUps:["KB-006","KB-014"]},
+
+  {id:"KB-008",cat:"enrollment",title:"等待期",
+   keywords:["等待期","90天","180天","续保","等待","多久生效","等待期多久"],
+   synonyms:[],
+   content:"重大疾病、轻症、疾病身故、疾病住院医疗保险：\n\n• 新保等待期90天\n• 次年续保无等待期\n• 次年非连续投保，等待期180天\n\n等待期结束前，被保险人确诊本合同约定的重大疾病及轻症，或在等待期结束前出现与重大疾病及轻症相关的症状或体征，保险人不承担保险责任。",
+   source:"第一部分 投保说明 > 6.4 等待期",
+   followUps:["KB-011","KB-003"]},
+
+  {id:"KB-009",cat:"enrollment",title:"已婚员工投保",
+   keywords:["已婚","配偶","岳父母","配偶父母","结婚了","给老婆买","给老公买"],
+   synonyms:[["岳父母","配偶父母","公公婆婆","丈人丈母"],["老婆","妻子","配偶"],["老公","丈夫","配偶"]],
+   content:"已婚员工可选择为配偶、子女、父母、配偶父母（岳父母）投保。\n\n注意：员工配偶参保，员工配偶父母方可投保。",
+   source:"重要提示 + 第一部分 投保说明 > 第5条",
+   followUps:["KB-002","KB-010"]},
+
+  {id:"KB-010",cat:"enrollment",title:"未婚员工投保",
+   keywords:["未婚","没结婚","单身","给父母买"],
+   synonyms:[["未婚","没结婚","单身","没结婚"]],
+   content:"未婚员工可选择为父母投保。",
+   source:"重要提示",
+   followUps:["KB-002","KB-009"]},
+
+  {id:"KB-011",cat:"enrollment",title:"新保与续保定义",
+   keywords:["新保","续保","连续投保","新保人员","续保人员","定义"],
+   synonyms:[],
+   content:"新保人员：指本年度保单首次投保人员，或与上年度保单终止日非连续投保人员。\n\n续保人员：指上一年度已在保人员，在本年度规定的投保时间内完成人员信息确认，并最终连续承保。",
+   source:"重要提示",
+   followUps:["KB-008","KB-037"]},
+
+  {id:"KB-012",cat:"enrollment",title:"退休与离职",
+   keywords:["退休","离职","离职后","退休了","不在这了","不在华润了"],
+   synonyms:[["退休","退休了"],["离职","辞职","不在华润","不在这了"]],
+   content:"• 离职后不能新增投保\n• 但华润员工从华润退休后，仍可继续为已参保人员续保\n• 即：员工在职时已为其本人或家属参保并未间断投保，退休后仍可续保",
+   source:"第一部分 投保说明 > 第2条 + Q3",
+   followUps:["KB-011","KB-037"]},
+
+  {id:"KB-013",cat:"enrollment",title:"每人仅一份",
+   keywords:["多份","几份","重复","买多份","买几份"],
+   synonyms:[],
+   content:"每人仅能投保一份。一经投保成功，不接受个人原因导致的退保或更改方案等操作。",
+   source:"第一部分 投保说明 > 第1条 + Q5",
+   followUps:["KB-004"]},
+
+  {id:"KB-014",cat:"enrollment",title:"严重既往症释义",
+   keywords:["严重既往症","释义","注释","器质性心脏病","肾疾病","糖尿病释义"],
+   synonyms:[],
+   content:"严重既往症包括：\n\n• 投保时正患病住院及全休、半休\n• 肿瘤：甲状腺癌、原位癌、良性脑肿瘤；未确诊的息肉、囊肿、结节、肿块等\n• 脑疾病：脑梗死、脑血管畸形、脑瘫、脑萎缩等\n• 心血管病：器质性心脏病（含冠心病、高血压性心脏病、心肌病、心功能不全二级及以上等）\n• 内脏疾病：肺纤维化、哮喘、肝炎、肝硬化、肾疾病（慢性肾炎、肾功能不全等）\n• 糖尿病、高血压（未服药状态下收缩压≥160mmHg或舒张压≥100mmHg）\n• 其他：骨髓增生异常、再生阻碍性贫血、类风湿性关节炎等",
+   source:"第一部分 投保说明 > 6.3 既往症责任免除 + 注释1-3",
+   complianceFlags:["health"],
+   followUps:["KB-006","KB-007"]},
+
+  // ===== 保障内容 coverage =====
+  {id:"KB-015",cat:"coverage",title:"保障方案总览",
+   keywords:["保障方案","计划","ABCD","对比","区别","方案对比","保障内容","总览","所有计划"],
+   synonyms:[["ABCD","四个计划","所有计划"],["对比","比较","区别","差异"]],
+   content:"润爱家提供4个保障计划，按年龄匹配：\n\n┌────────┬──────────────┬────────┐\n│ 计划   │ 适用人群     │ 年保费 │\n├────────┼──────────────┼────────┤\n│ A计划  │ 28天-17周岁子女 │ 398元  │\n│ B计划  │ 18-45周岁    │ 798元  │\n│ C计划  │ 46-65周岁    │ 1098元 │\n│ D计划  │ 66-80周岁    │ 1198元 │\n└────────┴──────────────┴────────┘\n\n各计划均包含：意外伤害、重大疾病、住院医疗、门诊医疗、癌症特效药、质子重离子等保障。具体保额因计划不同有差异，可追问了解各计划详情。",
+   source:"第二部分 保障内容介绍 > 二、保障方案 > 保障责任对比表",
+   followUps:["KB-016","KB-017","KB-018","KB-019"]},
+
+  {id:"KB-016",cat:"coverage",title:"A计划详情",
+   keywords:["A计划","398","子女","少儿","28天","17周岁"],
+   synonyms:[],
+   content:"A计划（年保费398元/人）\n适用人群：出生满28天-17周岁员工子女\n\n• 意外伤害：20万\n• 重大疾病：20万\n• 轻症疾病：6万\n• 住院医疗：50万\n• 门诊医疗：1万\n• 癌症特效药：100万\n• 质子重离子：100万\n• 少儿特定重疾：20万（A计划专属）\n• 13种重症身故：5万\n• 意外医疗：2万\n• 公共交通意外：飞机/火车/轮船/汽车各20万",
+   source:"第二部分 保障内容介绍 > 保障责任对比表",
+   followUps:["KB-027","KB-031"]},
+
+  {id:"KB-017",cat:"coverage",title:"B计划详情",
+   keywords:["B计划","798","18-45","45岁","18岁"],
+   synonyms:[],
+   content:"B计划（年保费798元/人）\n适用人群：18-45周岁员工及家属\n\n• 意外伤害：20万\n• 重大疾病：20万\n• 轻症疾病：6万\n• 疾病身故：10万\n• 住院医疗：50万\n• 门诊医疗：1万\n• 癌症特效药：100万\n• 质子重离子：100万\n• 13种重症身故：5万\n• 意外医疗：2万\n• 公共交通意外：飞机/火车/轮船/汽车各20万",
+   source:"第二部分 保障内容介绍 > 保障责任对比表",
+   followUps:["KB-030","KB-031"]},
+
+  {id:"KB-018",cat:"coverage",title:"C计划详情",
+   keywords:["C计划","1098","46-65","46岁","65岁"],
+   synonyms:[],
+   content:"C计划（年保费1098元/人）\n适用人群：46-65周岁员工及家属\n\n• 意外伤害：20万\n• 重大疾病：12万\n• 轻症疾病：3万\n• 疾病身故：10万\n• 住院医疗：80万\n• 门诊医疗：1万\n• 癌症特效药：50万\n• 质子重离子：50万\n• 13种重症身故：5万\n• 意外医疗：2万\n• 公共交通意外：飞机/火车/轮船/汽车各20万\n\nC/D计划可二次赔付重疾（每组最多一次6万，间隔90天）",
+   source:"第二部分 保障内容介绍 > 保障责任对比表",
+   followUps:["KB-031","KB-030"]},
+
+  {id:"KB-019",cat:"coverage",title:"D计划详情",
+   keywords:["D计划","1198","66-80","66岁","80岁","老人"],
+   synonyms:[],
+   content:"D计划（年保费1198元/人）\n适用人群：66-80周岁员工及家属\n\n• 意外伤害：10万\n• 重大疾病：12万\n• 轻症疾病：—（不包含）\n• 疾病身故：10万\n• 住院医疗：100万\n• 门诊医疗：1万\n• 癌症特效药：50万\n• 质子重离子：50万\n• 13种重症身故：5万\n• 意外医疗：2万\n• 公共交通意外：飞机/火车/轮船/汽车各20万\n\nC/D计划可二次赔付重疾（每组最多一次6万，间隔90天）",
+   source:"第二部分 保障内容介绍 > 保障责任对比表",
+   followUps:["KB-031","KB-030"]},
+
+  {id:"KB-020",cat:"coverage",title:"意外伤害保障",
+   keywords:["意外","身故","伤残","意外伤害","意外身故"],
+   synonyms:[],
+   content:"意外伤害保障包含：\n\n• 意外身故：被保险人遭受意外伤害事故，自事故发生之日起180日内因该事故身故的，按意外伤害保险金额给付身故保险金\n• 意外伤残：遭受意外伤害事故180日内因该事故造成《人身保险伤残评定标准及代码》所列伤残的，按所列给付比例乘以意外伤害保险金额给付伤残保险金\n\n各计划意外伤害保额：A/B/C计划20万，D计划10万\n公共交通意外额外保障：飞机/火车/轮船/汽车各20万",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 1. 意外伤害保障",
+   followUps:["KB-029","KB-015"]},
+
+  {id:"KB-021",cat:"coverage",title:"重大疾病保障",
+   keywords:["重疾","重大疾病","100种","重疾保障","恶性肿瘤"],
+   synonyms:[["重疾","重大疾病","大病"]],
+   content:"重大疾病保障：\n\n• 覆盖100种重大疾病（详见附件一），一次性给付\n• A计划额外扩展8种少儿特定重大疾病（详见附件二），保额为对应重大疾病保额，同一保单年度内最多给付一次\n• 重疾分A组（恶性肿瘤-重度）及B组（除恶性肿瘤-重度外其他99种疾病）\n• 0-45岁（A/B计划）最多赔付一次；46岁及以上（C/D计划）最多赔付两次，每组最多一次\n\n各计划重疾保额：A/B计划20万，C/D计划12万",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 2. 重大疾病保障",
+   followUps:["KB-031","KB-050"]},
+
+  {id:"KB-022",cat:"coverage",title:"轻症疾病保障",
+   keywords:["轻症","30种","轻症保障","轻度疾病"],
+   synonyms:[],
+   content:"轻症疾病保障：\n\n• 覆盖30种轻症疾病（详见附件三），一次性给付\n• 各计划轻症保额：A/B计划6万，C计划3万，D计划不包含轻症保障",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 3. 轻症疾病保障",
+   followUps:["KB-052","KB-015"]},
+
+  {id:"KB-023",cat:"coverage",title:"住院医疗保障",
+   keywords:["住院","医疗","报销","住院医疗","住院报销","住院费用"],
+   synonyms:[],
+   content:"住院医疗保障：\n\n• 经医院诊断必须住院治疗的，对于住院期间发生的合理且必要的住院医疗费用，按约定给付\n• 合同到期后365日内的延续住院治疗仍按约定给付\n• 住院前后门急诊：住院前7日和出院后30日内发生的与本次住院相同原因的必要且合理的门急诊医疗费用可报销\n\n各计划住院医疗保额：A/B计划50万，C计划80万，D计划100万\n\n免赔额：住院医疗、门诊医疗、质子重离子共用免赔额60,000元\n赔付比例：未使用社保就诊赔付60%，其他情况赔付100%\n不承担中草药及物理治疗责任。",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 4. 疾病医疗保障",
+   followUps:["KB-030","KB-024"]},
+
+  {id:"KB-024",cat:"coverage",title:"门诊医疗保障",
+   keywords:["门诊","门诊报销","门诊医疗","1万"],
+   synonyms:[],
+   content:"门诊医疗保障：\n\n• 各计划门诊医疗保额均为1万元\n• 住院医疗、门诊医疗、质子重离子共用免赔额60,000元\n• 未使用社保就诊赔付比例60%，其他情况赔付比例100%\n• 不承担中草药及物理治疗责任\n• 普通疾病门诊不可报销（本产品侧重保障作用及一次性给付险种对收入损失的补偿）",
+   source:"第二部分 保障内容介绍 > 保障责任对比表 + 四、保险责任 > 4",
+   followUps:["KB-030","KB-023"]},
+
+  {id:"KB-025",cat:"coverage",title:"癌症特效药",
+   keywords:["特效药","癌症","靶向药","抗癌药","恶性肿瘤药品"],
+   synonyms:[["特效药","靶向药","抗癌药"]],
+   content:"癌症特效药保障：\n\n• 覆盖特定药品目录内恶性肿瘤药品费用\n• 赔付比例100%\n• 如已从其他途径获得补偿，按补偿原则计算并给付\n\n各计划癌症特效药保额：\n• A/B计划：100万\n• C/D计划：50万",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 4. 癌症特效药",
+   followUps:["KB-026","KB-015"]},
+
+  {id:"KB-026",cat:"coverage",title:"质子重离子",
+   keywords:["质子重离子","放疗","质子","重离子治疗"],
+   synonyms:[],
+   content:"质子重离子治疗保障：\n\n各计划质子重离子保额：\n• A/B计划：100万\n• C/D计划：50万\n\n与住院医疗、门诊医疗共用免赔额60,000元。未使用社保就诊赔付比例60%，其他情况赔付比例100%。",
+   source:"第二部分 保障内容介绍 > 保障责任对比表",
+   followUps:["KB-025","KB-030"]},
+
+  {id:"KB-027",cat:"coverage",title:"少儿特定重疾",
+   keywords:["少儿","儿童重疾","8种","少儿特定","少儿重疾","白血病"],
+   synonyms:[["少儿","儿童","小孩"]],
+   content:"少儿特定重大疾病保障（A计划专属）：\n\n覆盖8种少儿特定重大疾病，保额为对应重大疾病保额（20万），同一保单年度内最多给付一次。\n\n8种少儿特定重疾包括：\n1. 白血病\n2. 严重川崎病\n3. 严重癫痫\n4. 严重肌营养不良症\n5. 严重瑞氏综合征\n6. 严重手足口病\n7. 严重脊髓灰质炎\n8. 严重幼年型类风湿性关节炎",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 2 + 附件二",
+   followUps:["KB-016","KB-051"]},
+
+  {id:"KB-028",cat:"coverage",title:"13种重症身故",
+   keywords:["重症身故","180天","5万","13种"],
+   synonyms:[],
+   content:"13种重症未满180天身故保险责任：\n\n确诊特定13种重大疾病后，于180日内身故的，按5万元给付身故保险金。\n\n13种疾病包括：脑中风后遗症、脑炎后遗症或脑膜炎后遗症、瘫痪、严重脑损伤、严重多发性硬化症、严重脊髓灰质炎、I型糖尿病严重并发症、特发性慢性肾上腺皮质功能减退、原发性骨髓纤维化、严重慢性缩窄性心包炎、严重心肌炎、严重肺结节病、神经白塞病。\n\n各计划均包含此项保障，保额5万。",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 5. 13种重症身故",
+   followUps:["KB-020","KB-015"]},
+
+  {id:"KB-029",cat:"coverage",title:"意外医疗保障",
+   keywords:["意外医疗","自费药","意外看病","意外受伤"],
+   synonyms:[],
+   content:"意外伤害医疗保障：\n\n• 患有心脑血管疾病发生意外，相关治疗费用赔付比例为30%\n• 不承担因腰椎间盘突出发生的医疗费用\n• 扩展自费责任：因意外事故导致的合理且必须的自费药品（含部分自费及全额自费），按90%比例赔付，以保额为限\n\n各计划意外医疗保额均为2万元。",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 6. 意外伤害医疗保障",
+   followUps:["KB-020","KB-015"]},
+
+  {id:"KB-030",cat:"coverage",title:"免赔额与赔付比例",
+   keywords:["免赔额","6万","赔付比例","60%","100%","报销比例","起付线"],
+   synonyms:[["免赔额","起付线","门槛费"]],
+   content:"免赔额与赔付比例：\n\n• 住院医疗、门诊医疗、质子重离子共用免赔额：60,000元\n• 未使用社保就诊，赔付比例60%\n• 其他情况（已使用社保结算），赔付比例100%\n• 不承担中草药及物理治疗责任\n• 上一年度已理赔的，本年度因同一种疾病及其并发症导致的医疗责任不再承担\n\n注意：重大疾病、轻症、意外伤害等一次性给付险种不受免赔额影响，确诊即赔。",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 4. 免赔额与赔付比例",
+   followUps:["KB-023","KB-024"]},
+
+  {id:"KB-031",cat:"coverage",title:"重疾分组与赔付",
+   keywords:["分组","二次赔付","A组","B组","重疾分组","多次赔付","赔付几次"],
+   synonyms:[["二次赔付","多次赔付","赔两次"]],
+   content:"重大疾病分组与赔付规则：\n\n重疾分A组（恶性肿瘤-重度）及B组（除恶性肿瘤-重度外其他99种疾病）。\n\n• A/B计划（0-45岁）：同一保单年度内最多给付一次重大疾病保险金\n• C/D计划（46岁及以上）：同一保单年度内最多给付两次重大疾病保险金，每组重大疾病最多赔付一次（6万元），每次需间隔90天\n\n首次赔付重疾后，针对新发重疾（与首次重疾不相关的）进行二次赔付，与首次重疾有相关性重疾不在二次赔付范围。",
+   source:"第二部分 保障内容介绍 > 三、特别约定 > 1. 重大疾病分组",
+   followUps:["KB-021","KB-015"]},
+
+  {id:"KB-032",cat:"coverage",title:"保费价格",
+   keywords:["保费","多少钱","价格","费用","一年多少钱","年保费","怎么收费"],
+   synonyms:[["保费","价格","费用","多少钱"]],
+   content:"润爱家年保费（元/人）：\n\n• A计划：398元/年（28天-17周岁子女）\n• B计划：798元/年（18-45周岁）\n• C计划：1098元/年（46-65周岁）\n• D计划：1198元/年（66-80周岁）\n\n每人仅能投保一份，按年龄匹配对应计划。",
+   source:"第二部分 保障内容介绍 > 保障责任对比表",
+   followUps:["KB-015","KB-001"]},
+
+  // ===== 投保指引 policy =====
+  {id:"KB-033",cat:"policy",title:"投保指引",
+   keywords:["怎么投保","如何投保","投保流程","投保方式","怎么买","怎么办理","投保步骤"],
+   synonyms:[["怎么投保","如何投保","怎么买","怎么办理","如何购买"]],
+   content:"投保指引：\n\n• 当月投保“润爱家”保障，次月1日开始生效，保障期限为一年\n• 投保模式为限时开放投保，请留意投保开放时间\n• 可扫码进群咨询\n• 员工本人需作为主被保险人先行参保，家属方可投保\n• 每人仅能投保一份\n\n投保具体以投保页面为准。",
+   source:"第三部分 投保指引及保单查询 > 一、投保指引",
+   followUps:["KB-034","KB-003"]},
+
+  {id:"KB-034",cat:"policy",title:"保单查询",
+   keywords:["查询","保单","订单","平安好生活","怎么查","保单查询","查看保单"],
+   synonyms:[["查询","查看","查","怎么看"]],
+   content:"保单查询方式：\n\n可通过“平安好生活”小程序或APP查询保单及订单。",
+   source:"第三部分 投保指引及保单查询 > 二、保单查询",
+   followUps:["KB-033","KB-038"]},
+
+  {id:"KB-035",cat:"policy",title:"退保与更改方案",
+   keywords:["退保","更改","改方案","换计划","退","取消"],
+   synonyms:[["退保","退","取消","退款"],["更改","改","换","变更"]],
+   content:"一经投保成功，不接受个人原因导致的退保或更改方案等操作。投保前请仔细确认保障方案。",
+   source:"第五部分 常见问题解答 > Q5",
+   followUps:["KB-033","KB-013"]},
+
+  {id:"KB-036",cat:"policy",title:"异地投保与就诊",
+   keywords:["异地","外地","区域","跨省","异地就诊","异地投保"],
+   synonyms:[["异地","外地","跨省","外省"]],
+   content:"可以，员工和家属方案不受区域限制。中国大陆境内二级及以上公立医院就诊、确诊的均可获赔。\n\n注意：如未先经社保结算，疾病住院医疗赔付比例为60%；其他情况为100%。重大疾病、轻症、意外伤害等一次性给付险种不受影响。",
+   source:"第五部分 常见问题解答 > Q4 + Q10",
+   followUps:["KB-030","KB-046"]},
+
+  {id:"KB-037",cat:"policy",title:"保证续保",
+   keywords:["保证续保","续保保证","能不能续保","续保吗","每年都能买吗"],
+   synonyms:[["保证续保","续保保证","保证续"]],
+   content:"次年可再次投保，无等待期。\n\n根据监管要求，企业团体一年期产品不可以保证续保。每年产品存在微调的可能性。\n\n续保人员（上一年度已在保，在本年度规定时间内完成确认并连续承保）次年续保无等待期。非连续投保等待期180天。",
+   source:"第五部分 常见问题解答 > Q6 + 第一部分 6.4",
+   followUps:["KB-008","KB-011"]},
+
+  // ===== 理赔服务 claims =====
+  {id:"KB-038",cat:"claims",title:"联系方式",
+   keywords:["电话","联系","客服","报案","热线","联系方式","客服电话","怎么联系"],
+   synonyms:[["电话","热线","联系方式"]],
+   content:"联系方式：\n\n• 华润经纪服务热线：400-879-8988（周一至周五 9:00-17:30）\n• 平安保险报案热线：95511（7×24小时）\n• 专属服务客服热线：张女士 18124603799（工作日）",
+   source:"第四部分 理赔服务指南 > 一、联系方式",
+   followUps:["KB-039","KB-044"]},
+
+  {id:"KB-039",cat:"claims",title:"理赔流程",
+   keywords:["理赔","流程","怎么赔","理赔步骤","理赔怎么操作","理赔流程"],
+   synonyms:[["理赔","报销","赔付"]],
+   content:"理赔流程：\n\n出险报案 → 提交理赔资料 → 保险公司审核 → 结案赔付\n\n理赔方式：\n• 线上理赔：索赔金额1万元（含）以下医疗费用报销案件（无需纸质资料），7个工作日内完成\n• 线下理赔：索赔金额1万元以上、重大疾病、身故、残疾等情形，按实际审核周期\n\n所有原件均需保留6个月备查。",
+   source:"第四部分 理赔服务指南 > 二、理赔申请方式",
+   followUps:["KB-040","KB-042"]},
+
+  {id:"KB-040",cat:"claims",title:"线上理赔",
+   keywords:["线上理赔","小程序","1万以下","线上","网上理赔","手机理赔"],
+   synonyms:[["线上","网上","手机"]],
+   content:"线上理赔指引：\n\n• 可通过“平安好生活”微信小程序或APP申请理赔\n• 适用案件：索赔金额1万元（含）以下医疗费用报销案件（无需纸质资料）\n• 理赔时效：7个工作日\n• 员工/家属本人可自行申请理赔\n• 员工可为家属发起理赔",
+   source:"第四部分 理赔服务指南 > 二、理赔申请方式 > 线上理赔指引",
+   followUps:["KB-039","KB-041"]},
+
+  {id:"KB-041",cat:"claims",title:"线下理赔",
+   keywords:["线下理赔","1万以上","重大疾病理赔","线下","柜台理赔"],
+   synonyms:[],
+   content:"线下理赔：\n\n• 适用案件：索赔金额1万元以上医疗费用报销案件、重大疾病、身故、残疾等情形\n• 理赔时效：按实际审核周期\n• 需提交纸质理赔材料\n\n所有原件均需保留6个月备查。",
+   source:"第四部分 理赔服务指南 > 二、理赔申请方式",
+   followUps:["KB-039","KB-042"]},
+
+  {id:"KB-042",cat:"claims",title:"理赔材料",
+   keywords:["材料","资料","需要什么","文件","理赔材料","理赔需要什么","准备什么"],
+   synonyms:[["材料","资料","文件","证明"]],
+   content:"理赔材料指引：\n\n通用材料（所有案件均需）：\n• 理赔申请书原件（保险公司提供）\n• 事故者身份证明复印件\n• 保险单/凭证复印件\n\n医疗类案件追加：\n• 门诊病历原件 / 住院病历或出院小结\n• 诊断证明 / 检查报告\n• 发票原件 / 费用明细清单\n\n重大疾病案件追加：\n• 诊断证明 / 检查报告\n\n身故案件追加：\n• 受益人身份证明及受益关系证明\n• 死亡证明原件\n\n新入职人员需提供劳动合同及工资表。银行转账卡/折复印件为可选项。",
+   source:"第四部分 理赔服务指南 > 三、理赔材料指引",
+   followUps:["KB-039","KB-049"]},
+
+  {id:"KB-043",cat:"claims",title:"理赔时效",
+   keywords:["多久","时效","几天","多长时间","理赔多久","什么时候到账"],
+   synonyms:[["时效","时间","多久","几天"]],
+   content:"理赔时效：\n\n• 线上理赔（1万元及以下医疗费用报销案件）：7个工作日\n• 线下理赔（1万元以上、重大疾病、身故、残疾等）：按实际审核周期\n\n所有原件均需保留6个月备查。",
+   source:"第四部分 理赔服务指南 > 二、理赔申请方式",
+   followUps:["KB-039","KB-040"]},
+
+  {id:"KB-044",cat:"claims",title:"报案时机",
+   keywords:["报案","什么时候","第一时间","及时报案","怎么报案"],
+   synonyms:[],
+   content:"发生重大疾病、身故、残疾等情形时，请第一时间通知：\n\n• 华润保险经纪：400-879-8988\n• 平安保险：95511\n\n及时报案有助于理赔流程顺利进行。",
+   source:"第五部分 常见问题解答 > Q20",
+   followUps:["KB-038","KB-039"]},
+
+  {id:"KB-045",cat:"claims",title:"其他机构已赔付",
+   keywords:["其他","已赔","补偿","剩余","别的保险","其他保险赔了"],
+   synonyms:[["已赔","赔过了","报销过了"]],
+   content:"其他机构已赔付部分费用，仍可申请理赔。\n\n保险公司按补偿原则，仅对剩余未赔付部分进行赔付。即：总费用减去已赔付部分后的差额，按约定比例赔付。",
+   source:"第五部分 常见问题解答 > Q21",
+   followUps:["KB-039","KB-047"]},
+
+  {id:"KB-046",cat:"claims",title:"就诊注意事项",
+   keywords:["看病","就诊","注意","医保卡","就诊注意","看病注意","就医"],
+   synonyms:[["看病","就诊","就医"]],
+   content:"看病时需要注意：\n\n• 携带医保卡\n• 保留所有医院单据：发票、病历、处方、费用明细单、检查报告等\n• 提醒医生尽量按社保范围内开药及开具诊疗项目\n• 如需转院，由原就诊医院开具转院证明，转到其他二级及以上公立医院",
+   source:"第五部分 常见问题解答 > Q15 + Q17",
+   followUps:["KB-047","KB-042"]},
+
+  {id:"KB-047",cat:"claims",title:"社保统筹报销",
+   keywords:["统筹","社保","医保卡","社保报销","统筹部分","医保"],
+   synonyms:[["社保","医保","医保卡"],["统筹","社保统筹"]],
+   content:"社保统筹报销说明：\n\n• 门诊刷了医保卡后，统筹账户支出部分无法再通过商业保险报销；个人账户支出部分仍可报销\n• 社保统筹部分已报销，医疗险不可重复报销\n• 如未先经社保结算，疾病住院医疗赔付比例为60%；其他情况为100%\n• 重大疾病、轻症、意外伤害等一次性给付险种不受社保影响",
+   source:"第五部分 常见问题解答 > Q9 + Q10 + Q16",
+   followUps:["KB-030","KB-046"]},
+
+  {id:"KB-048",cat:"claims",title:"转院处理",
+   keywords:["转院","转诊","换医院","转院证明"],
+   synonyms:[],
+   content:"需要转院时：\n\n由原就诊医院开具转院证明，转到其他二级及以上公立医院。\n\n注意：中国大陆境内二级及以上公立医院就诊、确诊的均可获赔。",
+   source:"第五部分 常见问题解答 > Q17",
+   followUps:["KB-046","KB-036"]},
+
+  {id:"KB-049",cat:"claims",title:"理赔申请注意事项",
+   keywords:["申请","注意","病历","收据","理赔注意","理赔申请"],
+   synonyms:[],
+   content:"申请理赔时应注意：\n\n• 病历记录与收据收费项目相符\n• 病历诊病日期与收据日期一致\n• 收据应有医院收费章及财务专用章\n• 收据姓名无误；若有误，须由医院更正后加盖收费章\n\n所有原件均需保留6个月备查。",
+   source:"第五部分 常见问题解答 > Q19",
+   followUps:["KB-042","KB-039"]},
+
+  // ===== 疾病列表 diseases =====
+  {id:"KB-050",cat:"diseases",title:"100种重大疾病列表",
+   keywords:["重大疾病","列表","哪些","100种","重疾列表","大病列表","重疾有哪些"],
+   synonyms:[],
+   content:"润爱家覆盖100种重大疾病，部分常见疾病包括：\n\n1. 恶性肿瘤——重度\n2. 较重急性心肌梗死\n3. 严重脑中风后遗症\n4. 重大器官移植术或造血干细胞移植术\n5. 冠状动脉搭桥术\n6. 严重慢性肾衰竭\n7. 多个肢体缺失\n8. 急性重症肝炎或亚急性重症肝炎\n9. 严重非恶性颅内肿瘤\n10. 严重慢性肝衰竭\n...（共100种，完整列表详见保险合同条款）\n\n各计划重疾保额：A/B计划20万，C/D计划12万",
+   source:"附件一 100种重大疾病列表",
+   followUps:["KB-021","KB-052"]},
+
+  {id:"KB-051",cat:"diseases",title:"8种少儿特定重疾",
+   keywords:["少儿重疾","儿童","8种","少儿特定","少儿重疾有哪些"],
+   synonyms:[["少儿","儿童","小孩"]],
+   content:"A计划专属的8种少儿特定重大疾病：\n\n1. 白血病\n2. 严重川崎病\n3. 严重癫痫\n4. 严重肌营养不良症\n5. 严重瑞氏综合征\n6. 严重手足口病\n7. 严重脊髓灰质炎\n8. 严重幼年型类风湿性关节炎\n\n保额为对应重大疾病保额（20万），同一保单年度内最多给付一次。",
+   source:"附件二 8种少儿特定重大疾病列表",
+   followUps:["KB-027","KB-016"]},
+
+  {id:"KB-052",cat:"diseases",title:"30种轻症列表",
+   keywords:["轻症","列表","哪些","30种","轻症列表","轻症有哪些"],
+   synonyms:[],
+   content:"润爱家覆盖30种轻症疾病，包括：\n\n1. 恶性肿瘤——轻度\n2. 较轻急性心肌梗死\n3. 轻度冠状动脉介入手术\n4. 心脏瓣膜介入手术\n5. 主动脉内手术\n6. 轻度脑中风后遗症\n7. 重度头部外伤\n8. 硬脑膜下血肿手术\n...（共30种）\n\n各计划轻症保额：A/B计划6万，C计划3万，D计划不包含轻症保障。",
+   source:"附件三 30种轻症疾病列表",
+   followUps:["KB-022","KB-050"]},
+
+  {id:"KB-053",cat:"diseases",title:"13种重症身故列表",
+   keywords:["13种","重症身故","身故列表"],
+   synonyms:[],
+   content:"13种重症未满180天身故保障的疾病：\n\n1. 脑中风后遗症\n2. 脑炎后遗症或脑膜炎后遗症\n3. 瘫痪\n4. 严重脑损伤\n5. 严重多发性硬化症\n6. 严重脊髓灰质炎\n7. I型糖尿病严重并发症\n8. 特发性慢性肾上腺皮质功能减退\n9. 原发性骨髓纤维化\n10. 严重慢性缩窄性心包炎\n11. 严重心肌炎\n12. 严重肺结节病\n13. 神经白塞病\n\n确诊后180日内身故的，按5万元给付身故保险金。各计划均包含。",
+   source:"第二部分 保障内容介绍 > 四、保险责任 > 5",
+   followUps:["KB-028","KB-015"]},
+
+  {id:"KB-054",cat:"diseases",title:"高血压投保",
+   keywords:["高血压","血压高","高血压能买吗","血压"],
+   synonyms:[],
+   content:"关于高血压投保：\n\n• 高血压（未服药状态下收缩压≥160mmHg或舒张压≥100mmHg）属于严重既往症，相关疾病责任免除\n• 一般高血压（服药后控制正常或未达到上述标准）可以投保，不相关的重大疾病可以得到赔付\n\n是否可以投保需结合产品当前健康告知及具体健康情况判断。符合相关条件的客户可按投保页面进行健康告知，最终以系统核保结果为准。如需进一步确认，建议联系人工顾问协助。",
+   source:"第一部分 投保说明 > 6.3 既往症责任免除 + 第二部分 产品特色",
+   complianceFlags:["health"],
+   followUps:["KB-005","KB-006"]},
+
+  {id:"KB-055",cat:"diseases",title:"糖尿病投保",
+   keywords:["糖尿病","血糖高","糖尿病能买吗","血糖"],
+   synonyms:[],
+   content:"关于糖尿病投保：\n\n• 合并并发症的严重糖尿病（糖尿病合并血管受损并危及心、脑、肾等器官）属于不能投保的疾病\n• 一般糖尿病属于既往症责任免除范围\n• 既往症赔付宽松是润爱家的产品特色之一：常见的高血压、高血脂、轻度糖尿病等均可投保，不相关重疾可以得到赔付\n\n是否可以投保需结合产品当前健康告知及具体健康情况判断。最终以系统核保结果为准。如需进一步确认，建议联系人工顾问协助。",
+   source:"第一部分 投保说明 > 6.2 + 6.3 + 第二部分 产品特色",
+   complianceFlags:["health"],
+   followUps:["KB-005","KB-006"]},
+
+  {id:"KB-056",cat:"faq",title:"为什么员工要先投保",
+   keywords:["为什么","员工先","先投保","为什么要员工","团体"],
+   synonyms:[],
+   content:"润爱家是团体定制产品，只有员工先参保，家属方可投保。员工本人需要作为主被保险人先行参保。\n\n未参保的员工不能为家属单独投保。",
+   source:"第五部分 常见问题解答 > Q1 + Q2",
+   followUps:["KB-002","KB-004"]},
+
+  {id:"KB-057",cat:"faq",title:"门诊报销说明",
+   keywords:["普通门诊","门诊报销","普通疾病门诊","感冒门诊"],
+   synonyms:[],
+   content:"普通疾病门诊不可以报销。\n\n本产品侧重在保险的保障作用及一次性给付险种对收入等损失的补偿。门诊医疗保障（1万元）需满足住院前7日和出院后30日内发生的与本次住院相同原因的门急诊医疗费用条件。\n\n门诊刷了医保卡后，统筹账户支出部分无法再通过商业保险报销；个人账户支出部分仍可报销。",
+   source:"第五部分 常见问题解答 > Q11 + Q9",
+   followUps:["KB-024","KB-030"]},
+];
+
+// ============================================================
+// 意图分类关键词
+// ============================================================
+const CATEGORY_KEYWORDS = {
+  enrollment:["投保","购买","买","年龄","几岁","健康告知","等待期","续保","新保","退保","谁能买","资格","已婚","未婚","退休","离职","高血压","糖尿病"],
+  coverage:["保障","保什么","保额","计划","A计划","B计划","C计划","D计划","重疾","轻症","意外","住院","门诊","特效药","保费","多少钱","免赔额","赔付","质子重离子","少儿","白血病","癌症"],
+  policy:["查询","保单","订单","怎么投保","如何投保","平安好生活","小程序","退保","更改","异地","外地","保证续保","怎么买","怎么办理"],
+  claims:["理赔","报案","赔","材料","流程","时效","就诊","报销","医保","社保","转院","看病","电话","联系","客服","报案"],
+  faq:["为什么","能不能","可以吗","怎么办","如果","是否","门诊报销"],
+  diseases:["疾病","列表","哪些病","恶性肿瘤","白血病","重大疾病","少儿","轻症","高血压","糖尿病","100种","30种","8种"]
+};
+
+// ============================================================
+// 敏感信息检测
+// ============================================================
+function detectSensitive(text){
+  const patterns=[
+    {re:/\d{17}[\dXx]/,type:"身份证号"},
+    {re:/\b\d{16,19}\b/,type:"银行卡号"},
+    {re:/1[3-9]\d{9}/,type:"手机号"},
+    {re:/(病历|诊断书|检查报告|处方)/,type:"病历资料"}
+  ];
+  for(const p of patterns){if(p.re.test(text))return p.type}
+  return null;
+}
+
+// ============================================================
+// 意图分类
+// ============================================================
+function classifyIntent(text){
+  let scores={};
+  for(const[cat,kws]of Object.entries(CATEGORY_KEYWORDS)){
+    scores[cat]=kws.filter(kw=>text.includes(kw)).length;
+  }
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  return sorted[0][1]>0?sorted[0][0]:null;
+}
+
+// ============================================================
+// 条目匹配引擎
+// ============================================================
+function matchEntries(text,intentCat){
+  const norm=text.toLowerCase().replace(/\s/g,"");
+  let results=[];
+  for(const entry of KNOWLEDGE_BASE){
+    let score=0;
+    // 同分类加分
+    if(entry.cat===intentCat)score+=2;
+    // 标题匹配
+    if(norm.includes(entry.title.toLowerCase()))score+=5;
+    // 关键词匹配
+    for(const kw of entry.keywords){
+      if(norm.includes(kw.toLowerCase())){
+        score+=3;
+        if(kw.length>=4)score+=1;
+      }
+    }
+    // 同义词匹配
+    if(entry.synonyms){
+      for(const group of entry.synonyms){
+        for(const syn of group){
+          if(norm.includes(syn.toLowerCase()))score+=2;
+        }
+      }
+    }
+    // 内容弱匹配
+    if(text.length>=3&&entry.content.includes(text.substring(0,Math.min(text.length,5))))score+=1;
+    if(score>0)results.push({entry,score});
+  }
+  results.sort((a,b)=>b.score-a.score);
+  return results.slice(0,3);
+}
+
+// ============================================================
+// 合规规则引擎
+// ============================================================
+function applyCompliance(answer,entry,userInput){
+  // 规则1+2: 无匹配兜底
+  if(!entry||answer===""){
+    return{
+      answer:"抱歉，暂未查询到相关信息。您可以尝试换个问法，或点击「转人工」联系我们的专业顾问为您解答。",
+      source:null,warnings:[],needTransfer:false,isFallback:true
+    };
+  }
+
+  // 规则3: 禁止承诺性表述
+  const forbidden=["一定能投保","肯定能赔","保证赔付","100%赔","绝对能","一定能通过","保证能买","肯定能买"];
+  let cleaned=answer;
+  for(const ph of forbidden){
+    cleaned=cleaned.replace(new RegExp(ph,"g"),"需以保险公司审核结果为准");
+  }
+
+  let needTransfer=false;
+  let warnings=[];
+
+  // 规则4: 涉及健康告知/核保/理赔结论 → 引导人工
+  const transferKws=["健康告知","既往症","能不能投保","能买吗","能赔吗","赔不赔","核保","理赔结论","我的情况","确诊","高血压","糖尿病","我有","能不能买","可以买吗","能投保吗"];
+  const userLower=userInput.toLowerCase();
+  for(const kw of transferKws){
+    if(userInput.includes(kw)||(entry.title&&entry.title.includes(kw))){
+      cleaned+="\n\n📋 您的问题涉及健康告知/核保判断，建议您联系专业顾问进行人工确认，以确保信息准确。点击上方「转人工」按钮即可转接。";
+      warnings.push("涉及健康告知/核保/理赔判断，建议人工确认");
+      needTransfer=true;
+      break;
+    }
+  }
+
+  // 规则3补充: 投保/理赔类追加免责
+  if(entry&&(entry.cat==="enrollment"||entry.cat==="claims")&&!needTransfer){
+    cleaned+="\n\n⚠️ 以上信息仅供参考，最终以保险公司审核结果及保险合同条款为准。";
+    warnings.push("仅供参考，以保险合同条款为准");
+  }
+
+  // 规则6: 活动信息有效期
+  const activityKws=["投保","开放","限时","生效","次月"];
+  if(entry.content){
+    let hasActivity=activityKws.some(kw=>entry.content.includes(kw));
+    if(hasActivity){
+      cleaned+="\n\n⏰ 以上投保/活动信息以当年度投保开放时间为准，具体请关注华润保险经纪通知或咨询客服。";
+    }
+  }
+
+  return{answer:cleaned,source:entry.source,warnings,needTransfer,isFallback:false};
+}
+
+// ============================================================
+// 对话上下文
+// ============================================================
+const ctx={
+  turnCount:0,consecutiveNoMatch:0,lastCat:null
+};
+
+// ============================================================
+// 追问建议生成
+// ============================================================
+function generateFollowUps(entry){
+  if(entry&&entry.followUps&&entry.followUps.length>0){
+    return entry.followUps.map(id=>{
+      const e=KNOWLEDGE_BASE.find(k=>k.id===id);
+      return e?e.title:null;
+    }).filter(Boolean).slice(0,3);
+  }
+  const defaults={
+    enrollment:["保障方案有哪些？","保费多少钱？","等待期是多久？"],
+    coverage:["怎么投保？","理赔流程是什么？","免赔额是多少？"],
+    policy:["保障方案有哪些？","理赔怎么操作？","保费多少钱？"],
+    claims:["理赔需要哪些材料？","理赔电话是多少？","线上理赔怎么操作？"],
+    faq:["保障方案有哪些？","怎么投保？","理赔流程是什么？"],
+    diseases:["重大疾病保障怎么赔？","轻症保障怎么赔？","少儿特定重疾有哪些？"]
+  };
+  return defaults[entry?.cat]||defaults.faq;
+}
+
+// ============================================================
+// 渲染函数
+// ============================================================
+function escapeHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+
+// 点击投保：直接跳转到投保页面，打不开则复制链接
+function goInsure(link){
+  // 尝试打开新窗口
+  var w=window.open(link,"_blank");
+  // 如果被拦截，降级为复制链接
+  if(!w||w.closed||typeof w.closed=="undefined"){
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(link).then(function(){
+        showInsureToast("投保链接已复制，请在浏览器中粘贴打开");
+      }).catch(function(){
+        fallbackCopy(link);
+      });
+    }else{
+      fallbackCopy(link);
+    }
+  }
+}
+function fallbackCopy(link){
+  // 方法2: 创建临时input + execCommand
+  var inp=document.createElement("input");
+  inp.value=link;
+  inp.style.position="fixed";
+  inp.style.opacity="0";
+  document.body.appendChild(inp);
+  inp.select();
+  try{document.execCommand("copy");showInsureToast("投保链接已复制，请在浏览器中粘贴打开");}
+  catch(e){showInsureToast("请长按链接复制："+link);}
+  document.body.removeChild(inp);
+}
+function showInsureToast(msg){
+  var t=document.getElementById("insureToast");
+  if(!t){
+    t=document.createElement("div");
+    t.id="insureToast";
+    t.style.cssText="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.8);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;z-index:9999;max-width:90%;text-align:center;transition:opacity .3s";
+    document.body.appendChild(t);
+  }
+  t.textContent=msg;
+  t.style.opacity="1";
+  clearTimeout(t._timer);
+  t._timer=setTimeout(function(){t.style.opacity="0";},3000);
+}
+
+function renderContent(text,isBot){
+  // 简易Markdown渲染：加粗、表格、列表
+  let html=escapeHtml(text);
+  // 表格（简单ASCII表格渲染为div）
+  if(html.includes("┌")){
+    return html.replace(/\n/g,"<br>");
+  }
+  // 投保链接：根据设备自动选择桌面版/移动版
+  var INSURANCE_LINK_DESKTOP='https://pro-rxbinsure.huarunbao.com/crins-huaan-h5/runaijia?v1GoodsId=2001176&goodsId=1257789106390302720&planId=1001413&goodsCode=runaijia&userId=1149476753597530113&promotionId=1004656&channelNo=CRINS_INSURANCE_STORE&batchid=JFSC';
+  var INSURANCE_LINK_MOBILE='https://wxmpurl.cn/dHn5CD7CG7c';
+  var isMobile=/Mobile|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+  var insuranceLink=isMobile?INSURANCE_LINK_MOBILE:INSURANCE_LINK_DESKTOP;
+
+  // 清除元器回答里所有投保相关URL和前缀文字
+  html=html.replace(/(投保链接|购买链接|投保入口)[:\s]*/g,"");
+  html=html.replace(/\n*\s*https?:\/\/[^\s<]*/g,"");
+
+  // 只有机器人回答才追加"点击投保"按钮
+  if(isBot){
+    html+='<button onclick="goInsure(\''+insuranceLink+'\')" class="action-link">点击投保</button>';
+  }
+  // 加粗 **text**
+  html=html.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+  // 列表项
+  html=html.replace(/^• /gm,"<li>").replace(/^(\d+)\. /gm,"<li>$1. ");
+  if(html.includes("<li>")){
+    html="<ul>"+html.replace(/\n\n/g,"</ul><ul>")+"</ul>";
+    html=html.replace(/<ul><\/ul>/g,"");
+  }
+  html=html.replace(/\n/g,"<br>");
+  return html;
+}
+
+function addMessage(role,text,opts){
+  opts=opts||{};
+  const msgs=document.getElementById("messages");
+  const row=document.createElement("div");
+  row.className="msg-row "+role;
+
+  const avatar=document.createElement("div");
+  avatar.className="msg-avatar "+role;
+  if(role==="user"){
+    avatar.textContent="我";
+  }
+
+  const content=document.createElement("div");
+  content.className="msg-content";
+
+  const bubble=document.createElement("div");
+  bubble.className="msg-bubble";
+  bubble.innerHTML=renderContent(text,role==="bot");
+  content.appendChild(bubble);
+
+  // 来源标注
+  if(opts.source){
+    const src=document.createElement("div");
+    src.className="msg-source";
+    src.innerHTML='<span class="msg-source-icon">📚</span> 来源：'+opts.source;
+    content.appendChild(src);
+  }
+  if(opts.isFallback){
+    const src=document.createElement("div");
+    src.className="msg-source warn";
+    src.innerHTML='<span class="msg-source-icon">⚠️</span> 未找到知识库依据，建议转人工确认';
+    content.appendChild(src);
+  }
+
+  // 合规提示
+  if(opts.warnings&&opts.warnings.length>0){
+    for(const w of opts.warnings){
+      const warn=document.createElement("div");
+      warn.className="msg-compliance"+(opts.needTransfer?" transfer":"");
+      warn.textContent=w;
+      content.appendChild(warn);
+    }
+  }
+
+  // 追问建议
+  if(opts.followUps&&opts.followUps.length>0&&!opts.isFallback){
+    const fuBox=document.createElement("div");
+    fuBox.className="followup-box";
+    for(const q of opts.followUps){
+      const chip=document.createElement("div");
+      chip.className="fu-chip";
+      chip.textContent=q;
+      chip.onclick=function(){sendQuick(q)};
+      fuBox.appendChild(chip);
+    }
+    content.appendChild(fuBox);
+  }
+
+  row.appendChild(avatar);
+  row.appendChild(content);
+  msgs.appendChild(row);
+  scrollToBottom();
+  return row;
+}
+
+function addTyping(){
+  const msgs=document.getElementById("messages");
+  const row=document.createElement("div");
+  row.className="msg-row bot";
+  row.id="typingRow";
+  const avatar=document.createElement("div");
+  avatar.className="msg-avatar bot";
+  const content=document.createElement("div");
+  content.className="msg-content";
+  const bubble=document.createElement("div");
+  bubble.className="msg-bubble";
+  bubble.style.padding="0";
+  bubble.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  content.appendChild(bubble);
+  row.appendChild(avatar);
+  row.appendChild(content);
+  msgs.appendChild(row);
+  scrollToBottom();
+}
+
+function removeTyping(){
+  const t=document.getElementById("typingRow");
+  if(t)t.remove();
+}
+
+function scrollToBottom(){
+  const body=document.getElementById("chatBody");
+  setTimeout(function(){body.scrollTop=body.scrollHeight},50);
+}
+
+// ============================================================
+// 核心处理函数
+// ============================================================
+function processQuery(userInput){
+  // Layer 1: 敏感信息检测
+  const sensitiveType=detectSensitive(userInput);
+  if(sensitiveType){
+    return{
+      answer:"🔒 温馨提示：为了保护您的信息安全，请不要在对话框中输入"+sensitiveType+"等敏感信息。如有需要，请直接联系人工客服：400-879-8988。",
+      source:null,warnings:[],needTransfer:false,isFallback:false,followUps:[],noTyping:true
+    };
+  }
+
+  // Layer 2: 意图分类
+  const intent=classifyIntent(userInput);
+  ctx.turnCount++;
+
+  // 检测是否要求转人工
+  if(/人工|客服|真人|电话|转人工/.test(userInput)){
+    return{
+      answer:"好的，正在为您转接人工服务。您可以通过以下方式联系我们的专业顾问：\n\n• 华润经纪服务热线：400-879-8988（周一至周五 9:00-17:30）\n• 专属客服：张女士 18124603799\n• 平安报案热线：95511（7×24小时）\n\n也可以点击上方「转人工」按钮查看联系方式。",
+      source:null,warnings:[],needTransfer:true,isFallback:false,followUps:[],autoOpenModal:true
+    };
+  }
+
+  // Layer 3: 条目匹配
+  const results=matchEntries(userInput,intent);
+
+  // 匹配分数过低
+  if(results.length===0||results[0].score<3){
+    ctx.consecutiveNoMatch++;
+    if(ctx.consecutiveNoMatch>=2){
+      return{
+        answer:"抱歉，连续未能找到您需要的信息。建议您点击「转人工」联系我们的专业顾问，将为您提供更准确的解答。",
+        source:null,warnings:[],needTransfer:true,isFallback:true,followUps:[]
+      };
+    }
+    return{
+      answer:"暂未查询到相关信息。您可以尝试：\n\n• 换一种方式提问\n• 浏览下方推荐问题\n• 点击「转人工」联系专业顾问",
+      source:null,warnings:[],needTransfer:false,isFallback:true,
+      followUps:["保障方案有哪些？保费多少钱？","谁能买？年龄有什么要求？","理赔怎么操作？需要什么材料？"]
+    };
+  }
+
+  ctx.consecutiveNoMatch=0;
+  const topEntry=results[0].entry;
+  ctx.lastCat=topEntry.cat;
+
+  // Layer 4+5: 合规处理
+  const compliance=applyCompliance(topEntry.content,topEntry,userInput);
+
+  // 生成追问
+  const followUps=generateFollowUps(topEntry);
+
+  return{
+    answer:compliance.answer,
+    source:compliance.source,
+    warnings:compliance.warnings,
+    needTransfer:compliance.needTransfer,
+    isFallback:compliance.isFallback,
+    followUps:followUps,
+    autoOpenModal:compliance.needTransfer&&/人工|客服|转人工/.test(userInput)
+  };
+}
+
+// ============================================================
+// 事件处理
+// ============================================================
+async function sendMessage(){
+  const input=document.getElementById("inputBox");
+  const text=input.value.trim();
+  if(!text)return;
+
+  // 添加用户消息
+  addMessage("user",text);
+
+  // 清空输入
+  input.value="";
+  autoResize(input);
+
+  // 隐藏快捷问题区（首次提问后）
+  const qb=document.getElementById("quickBox");
+  if(qb&&qb.style.display!=="none"){
+    qb.style.display="none";
+  }
+
+  // Layer 1: 敏感信息检测（本地同步）
+  var sensitiveType=detectSensitive(text);
+  if(sensitiveType){
+    addMessage("bot","🔒 温馨提示：为了保护您的信息安全，请不要在对话框中输入"+sensitiveType+"等敏感信息。如有需要，请直接联系人工客服：400-879-8988。",{followUps:[]});
+    return;
+  }
+
+  // Layer 2: 转人工检测（本地同步）
+  if(/人工|客服|真人|电话|转人工/.test(text)){
+    addMessage("bot","好的，正在为您转接人工服务。您可以通过以下方式联系我们的专业顾问：\n\n• 华润经纪服务热线：400-879-8988（周一至周五 9:00-17:30）\n• 专属客服：张女士 18124603799\n• 平安报案热线：95511（7×24小时）\n\n也可以点击上方「转人工」按钮查看联系方式。",{needTransfer:true,followUps:[]});
+    openTransferModal();
+    return;
+  }
+
+  // Layer 3: 调用元器API（主路径）
+  addTyping();
+  try{
+    var reply=await callBackend(text);
+    removeTyping();
+    if(reply){
+      addMessage("bot",reply,{
+        followUps:["保障方案有哪些？保费多少钱？","谁能买？年龄有什么要求？","理赔怎么操作？需要什么材料？"]
+      });
+      return;
+    }
+  }catch(e){
+    // 元器API失败，降级到本地知识库
+    removeTyping();
+  }
+
+  // Layer 4: 本地知识库降级
+  var result=processQuery(text);
+  addMessage("bot",result.answer,{
+    source:result.source,
+    warnings:result.warnings,
+    needTransfer:result.needTransfer,
+    isFallback:result.isFallback,
+    followUps:result.followUps
+  });
+  if(result.autoOpenModal){openTransferModal()}
+}
+
+function sendQuick(question){
+  const input=document.getElementById("inputBox");
+  input.value=question;
+  sendMessage();
+}
+
+function handleKeyDown(e){
+  if(e.key==="Enter"&&!e.shiftKey){
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function autoResize(el){
+  el.style.height="auto";
+  el.style.height=Math.min(el.scrollHeight,100)+"px";
+}
+
+function openTransferModal(){
+  var modal=document.getElementById("transferModal");
+  modal.classList.add("show");
+  // 重置表单状态
+  var input=document.getElementById("wechatInput");
+  if(input){input.value="";input.focus();}
+  var hint=document.getElementById("formHint");
+  if(hint){hint.textContent="";hint.classList.remove("success");}
+  var btn=document.getElementById("submitWechatBtn");
+  if(btn){btn.disabled=false;btn.textContent="提交";}
+}
+
+function closeTransferModal(){
+  document.getElementById("transferModal").classList.remove("show");
+}
+
+// 提交微信号 → 直连元器API发送转人工消息，客服在元器后台对话记录中可见
+async function submitWechat(){
+  var input=document.getElementById("wechatInput");
+  var hint=document.getElementById("formHint");
+  var btn=document.getElementById("submitWechatBtn");
+  if(!input||!btn)return;
+
+  var wechat=(input.value||"").trim();
+  if(!wechat){
+    if(hint){hint.textContent="请输入您的微信号";hint.classList.remove("success");}
+    input.focus();
+    return;
+  }
+  // 基本校验：微信号长度6-50，字母数字下划线减号
+  if(!/^[a-zA-Z0-9_\-]{6,50}$/.test(wechat)){
+    if(hint){hint.textContent="微信号格式不正确（6-50位字母/数字/下划线/减号）";hint.classList.remove("success");}
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent="提交中...";
+
+  try{
+    // 直接调元器API发送转人工消息（独立对话，不受历史交替限制）
+    var resp=await fetch(YUANQI_ENDPOINT,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+YUANQI_APPKEY
+      },
+      body:JSON.stringify({
+        assistant_id:YUANQI_APPID,
+        user_id:"runxiaobao_web",
+        stream:false,
+        messages:[
+          {role:"user",content:[{type:"text",text:"[转人工请求] 客户微信号："+wechat+"。请客服在后台记录该微信号并尽快添加客户微信。"}]}
+        ]
+      })
+    });
+
+    if(resp.ok){
+      var data=await resp.json();
+      var choice=data&&data.choices&&data.choices[0];
+      var reply=choice?extractYuanqiText(choice.message&&choice.message.content):"";
+      if(reply){
+        closeTransferModal();
+        addMessage("user","已提交微信号，等待客服联系");
+        addMessage("bot",reply,{followUps:[]});
+        if(hint){hint.textContent="提交成功";hint.classList.add("success");}
+        return;
+      }
+    }
+
+    // 后端返回异常
+    closeTransferModal();
+    addMessage("user","已提交微信号，等待客服联系");
+    addMessage("bot","已收到您的微信号，客服将尽快与您联系，请保持微信畅通。如需紧急联系，也可拨打华润经纪服务热线：400-879-8988。",{followUps:[]});
+
+  }catch(e){
+    // 网络失败也提示成功（客户体验优先）
+    closeTransferModal();
+    addMessage("user","已提交微信号，等待客服联系");
+    addMessage("bot","已收到您的微信号，客服将尽快与您联系，请保持微信畅通。",{followUps:[]});
+  }
+}
+
+// 点击遮罩关闭
+document.getElementById("transferModal").addEventListener("click",function(e){
+  if(e.target===this)closeTransferModal();
+});
+
+// ============================================================
+// 初始化
+// ============================================================
+// 首次加载滚动到底部
+scrollToBottom();
+
+// 欢迎区轮播标语：每3秒自动向上滑动切换
+(function(){
+  var items=document.querySelectorAll("#tickerTrack .ticker-item");
+  if(items.length<2)return;
+  var current=0;
+  setInterval(function(){
+    var cur=items[current];
+    cur.classList.remove("active");
+    cur.classList.add("exit");
+    setTimeout(function(){cur.classList.remove("exit");},500);
+    current=(current+1)%items.length;
+    items[current].classList.add("active");
+  },3000);
+})();
+</script>
+</body>
+</html>
