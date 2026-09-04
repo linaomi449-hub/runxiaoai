@@ -306,7 +306,7 @@ body{
     <div class="nav-title">润小爱 · 智能咨询助手</div>
     <div class="nav-status"><span class="dot"></span>在线 · 润爱家产品咨询</div>
   </div>
-  <button class="btn-human" onclick="openTransferModal()">转人工</button>
+  <button class="btn-human" onclick="goHumanService()">转人工</button>
 </header>
 
 <!-- 对话主体 -->
@@ -390,6 +390,9 @@ body{
 const YUANQI_ENDPOINT = "https://yuanqi.tencent.com/openapi/v1/agent/chat/completions";
 const YUANQI_APPKEY = "GwXU16RbCNVny0d1ulIvE5DAaDekDd7b";
 const YUANQI_APPID  = "2083169587444756736";
+
+// 人工服务入口链接（华润宝）
+const HUMAN_SERVICE_URL = "https://prd-xman-cloud-playbox.huarunbao.com/cms/pages/fun/index?tenantCode=BXJJ&xCubeActivityCode=suby1003";
 
 // 从元器响应中提取文本（兼容字符串和数组格式）
 function extractYuanqiText(content){
@@ -1017,15 +1020,33 @@ function goInsure(link){
     }
   }
 }
-function fallbackCopy(link){
+// 转人工：直接跳转到人工服务页面，打不开则复制链接
+function goHumanService(){
+  // 尝试打开新窗口
+  var w=window.open(HUMAN_SERVICE_URL,"_blank");
+  // 如果被拦截，降级为复制链接
+  if(!w||w.closed||typeof w.closed=="undefined"){
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(HUMAN_SERVICE_URL).then(function(){
+        showInsureToast("人工服务链接已复制，请在浏览器中粘贴打开");
+      }).catch(function(){
+        fallbackCopy(HUMAN_SERVICE_URL,"人工服务链接已复制，请在浏览器中粘贴打开");
+      });
+    }else{
+      fallbackCopy(HUMAN_SERVICE_URL,"人工服务链接已复制，请在浏览器中粘贴打开");
+    }
+  }
+}
+function fallbackCopy(link,msg){
   // 方法2: 创建临时input + execCommand
+  var tip=msg||"投保链接已复制，请在浏览器中粘贴打开";
   var inp=document.createElement("input");
   inp.value=link;
   inp.style.position="fixed";
   inp.style.opacity="0";
   document.body.appendChild(inp);
   inp.select();
-  try{document.execCommand("copy");showInsureToast("投保链接已复制，请在浏览器中粘贴打开");}
+  try{document.execCommand("copy");showInsureToast(tip);}
   catch(e){showInsureToast("请长按链接复制："+link);}
   document.body.removeChild(inp);
 }
@@ -1191,7 +1212,7 @@ function processQuery(userInput){
   // 检测是否要求转人工
   if(/人工|客服|真人|电话|转人工/.test(userInput)){
     return{
-      answer:"好的，正在为您转接人工服务。您可以通过以下方式联系我们的专业顾问：\n\n• 华润经纪服务热线：400-879-8988（周一至周五 9:00-17:30）\n• 专属客服：张女士 18124603799\n• 平安报案热线：95511（7×24小时）\n\n也可以点击上方「转人工」按钮查看联系方式。",
+      answer:"好的，正在为您转接人工服务，正在打开人工服务页面…如果页面未能自动打开，请点击上方「转人工」按钮再次进入。",
       source:null,warnings:[],needTransfer:true,isFallback:false,followUps:[],autoOpenModal:true
     };
   }
@@ -1266,8 +1287,8 @@ async function sendMessage(){
 
   // Layer 2: 转人工检测（本地同步）
   if(/人工|客服|真人|电话|转人工/.test(text)){
-    addMessage("bot","好的，正在为您转接人工服务。您可以通过以下方式联系我们的专业顾问：\n\n• 华润经纪服务热线：400-879-8988（周一至周五 9:00-17:30）\n• 专属客服：张女士 18124603799\n• 平安报案热线：95511（7×24小时）\n\n也可以点击上方「转人工」按钮查看联系方式。",{needTransfer:true,followUps:[]});
-    openTransferModal();
+    addMessage("bot","好的，正在为您转接人工服务，请稍候…",{needTransfer:true,followUps:[]});
+    goHumanService();
     return;
   }
 
@@ -1296,7 +1317,7 @@ async function sendMessage(){
     isFallback:result.isFallback,
     followUps:result.followUps
   });
-  if(result.autoOpenModal){openTransferModal()}
+  if(result.autoOpenModal){goHumanService()}
 }
 
 function sendQuick(question){
