@@ -235,51 +235,6 @@ body{
 }
 .sensitive-tip span{color:var(--rose)}
 
-/* ===== 转人工弹窗 ===== */
-.modal-mask{
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  background:rgba(61,46,31,.4);backdrop-filter:blur(2px);
-  display:none;align-items:center;justify-content:center;z-index:100;
-  animation:fadeIn .2s ease;
-}
-.modal-mask.show{display:flex}
-.modal-card{
-  background:var(--card);border-radius:20px;padding:24px 20px;
-  max-width:340px;width:90%;text-align:center;
-  box-shadow:var(--shadow-lg);animation:modalIn .3s ease;
-}
-@keyframes modalIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-.modal-icon{
-  width:52px;height:52px;border-radius:50%;margin:0 auto 12px;
-  background:rgba(90,111,140,.1);display:flex;align-items:center;justify-content:center;
-  font-size:24px;
-}
-.modal-title{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--ink)}
-.modal-desc{font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:16px}
-.modal-contacts{
-  background:var(--bg);border-radius:12px;padding:12px;margin-bottom:16px;
-  text-align:left;font-size:13px;line-height:2;
-}
-.modal-contacts strong{color:var(--accent)}
-.modal-form{margin-bottom:16px}
-.modal-input{
-  width:100%;padding:10px 14px;border:2px solid #e0d6c8;border-radius:10px;
-  font-size:14px;font-family:inherit;background:#fff;color:#333;
-  transition:border-color .2s;box-sizing:border-box;
-}
-.modal-input:focus{outline:none;border-color:#1a73e8}
-.modal-form-hint{font-size:12px;color:var(--rose);margin-top:6px;min-height:16px;text-align:left}
-.modal-form-hint.success{color:var(--teal)}
-.modal-btns{display:flex;gap:10px}
-.modal-btn{
-  flex:1;padding:10px;border-radius:10px;border:none;font-size:14px;
-  font-weight:600;cursor:pointer;transition:all .2s;
-}
-.modal-btn.primary{background:var(--accent);color:#fff}
-.modal-btn.primary:hover{background:#b86030}
-.modal-btn.secondary{background:var(--bg);color:var(--ink-soft);border:1px solid var(--line)}
-.modal-btn:active{transform:scale(.95)}
-
 /* ===== 敏感信息警告 ===== */
 .alert-toast{
   position:fixed;top:60px;left:50%;transform:translateX(-50%);
@@ -357,27 +312,6 @@ body{
     <button class="btn-send" id="btnSend" onclick="sendMessage()">➤</button>
   </div>
   <div class="sensitive-tip"><span>🔒</span> 请勿输入身份证号、银行卡号、病历等敏感信息</div>
-</div>
-
-<!-- 转人工弹窗 -->
-<div class="modal-mask" id="transferModal">
-  <div class="modal-card">
-    <div class="modal-icon">👤</div>
-    <div class="modal-title">转接人工服务</div>
-    <div class="modal-desc">当前问题需要专业客服进一步为您解答，将为您转接人工服务。<br><br>请填写您的微信号，客服将在收到信息后与您联系；如已有客服联系方式，也可直接联系人工客服。</div>
-    <div class="modal-form">
-      <input type="text" id="wechatInput" class="modal-input" placeholder="请输入您的微信号" maxlength="50">
-      <div class="modal-form-hint" id="formHint"></div>
-    </div>
-    <div class="modal-btns">
-      <button class="modal-btn secondary" onclick="closeTransferModal()">取消</button>
-      <button class="modal-btn primary" id="submitWechatBtn" onclick="submitWechat()">提交</button>
-    </div>
-    <div class="modal-contacts" style="display:none">
-      <div>📞 <strong>华润经纪服务热线</strong>：400-879-8988</div>
-      <div>🕐 <strong>服务时间</strong>：周一至周五 9:00-17:30</div>
-    </div>
-  </div>
 </div>
 
 <!-- 敏感信息警告 -->
@@ -1337,93 +1271,6 @@ function autoResize(el){
   el.style.height="auto";
   el.style.height=Math.min(el.scrollHeight,100)+"px";
 }
-
-function openTransferModal(){
-  var modal=document.getElementById("transferModal");
-  modal.classList.add("show");
-  // 重置表单状态
-  var input=document.getElementById("wechatInput");
-  if(input){input.value="";input.focus();}
-  var hint=document.getElementById("formHint");
-  if(hint){hint.textContent="";hint.classList.remove("success");}
-  var btn=document.getElementById("submitWechatBtn");
-  if(btn){btn.disabled=false;btn.textContent="提交";}
-}
-
-function closeTransferModal(){
-  document.getElementById("transferModal").classList.remove("show");
-}
-
-// 提交微信号 → 直连元器API发送转人工消息，客服在元器后台对话记录中可见
-async function submitWechat(){
-  var input=document.getElementById("wechatInput");
-  var hint=document.getElementById("formHint");
-  var btn=document.getElementById("submitWechatBtn");
-  if(!input||!btn)return;
-
-  var wechat=(input.value||"").trim();
-  if(!wechat){
-    if(hint){hint.textContent="请输入您的微信号";hint.classList.remove("success");}
-    input.focus();
-    return;
-  }
-  // 基本校验：微信号长度6-50，字母数字下划线减号
-  if(!/^[a-zA-Z0-9_\-]{6,50}$/.test(wechat)){
-    if(hint){hint.textContent="微信号格式不正确（6-50位字母/数字/下划线/减号）";hint.classList.remove("success");}
-    return;
-  }
-
-  btn.disabled=true;
-  btn.textContent="提交中...";
-
-  try{
-    // 直接调元器API发送转人工消息（独立对话，不受历史交替限制）
-    var resp=await fetch(YUANQI_ENDPOINT,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Authorization":"Bearer "+YUANQI_APPKEY
-      },
-      body:JSON.stringify({
-        assistant_id:YUANQI_APPID,
-        user_id:"runxiaobao_web",
-        stream:false,
-        messages:[
-          {role:"user",content:[{type:"text",text:"[转人工请求] 客户微信号："+wechat+"。请客服在后台记录该微信号并尽快添加客户微信。"}]}
-        ]
-      })
-    });
-
-    if(resp.ok){
-      var data=await resp.json();
-      var choice=data&&data.choices&&data.choices[0];
-      var reply=choice?extractYuanqiText(choice.message&&choice.message.content):"";
-      if(reply){
-        closeTransferModal();
-        addMessage("user","已提交微信号，等待客服联系");
-        addMessage("bot",reply,{followUps:[]});
-        if(hint){hint.textContent="提交成功";hint.classList.add("success");}
-        return;
-      }
-    }
-
-    // 后端返回异常
-    closeTransferModal();
-    addMessage("user","已提交微信号，等待客服联系");
-    addMessage("bot","已收到您的微信号，客服将尽快与您联系，请保持微信畅通。如需紧急联系，也可拨打华润经纪服务热线：400-879-8988。",{followUps:[]});
-
-  }catch(e){
-    // 网络失败也提示成功（客户体验优先）
-    closeTransferModal();
-    addMessage("user","已提交微信号，等待客服联系");
-    addMessage("bot","已收到您的微信号，客服将尽快与您联系，请保持微信畅通。",{followUps:[]});
-  }
-}
-
-// 点击遮罩关闭
-document.getElementById("transferModal").addEventListener("click",function(e){
-  if(e.target===this)closeTransferModal();
-});
 
 // ============================================================
 // 初始化
