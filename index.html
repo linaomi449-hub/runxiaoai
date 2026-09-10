@@ -1014,6 +1014,8 @@ function renderContent(text,isBot){
   // 清除元器回答里所有投保相关URL和前缀文字
   html=html.replace(/(投保链接|购买链接|投保入口)[:\s]*/g,"");
   html=html.replace(/\n*\s*https?:\/\/[^\s<]*/g,"");
+  // 清除回答末尾的冒号（避免"原文："按钮"这种多余标点）
+  html=html.replace(/[:：]\s*$/,"");
 
   // 只有机器人回答才追加"点击投保"按钮
   if(isBot){
