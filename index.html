@@ -1006,8 +1006,8 @@ function renderContent(text,isBot){
     return html.replace(/\n/g,"<br>");
   }
   // 投保链接：根据设备自动选择桌面版/移动版
-  var INSURANCE_LINK_DESKTOP='https://pro-rxbinsure.huarunbao.com/crins-huaan-h5/runaijia?v1GoodsId=2001176&goodsId=1257789106390302720&planId=1001413&goodsCode=runaijia&userId=1149476753597530113&promotionId=1004656&channelNo=CRINS_INSURANCE_STORE&batchid=JFSC';
-  var INSURANCE_LINK_MOBILE='https://wxmpurl.cn/dHn5CD7CG7c';
+  var INSURANCE_LINK_DESKTOP='https://pro-rxbinsure.huarunbao.com/crins-huaan-h5/runaijia?v1GoodsId=2001176&goodsId=1257789106390302720&planId=1001413&goodsCode=runaijia&userId=1149476753597530113&promotionId=1004656&agentNo=CR0082413&businessChannelCode=A02&thirdOrderNoType=1&thirdOrderNo=9991000001_11494001_1788917366784';
+  var INSURANCE_LINK_MOBILE='https://pro-rxbinsure.huarunbao.com/crins-huaan-h5/runaijia?v1GoodsId=2001176&goodsId=1257789106390302720&planId=1001413&goodsCode=runaijia&userId=1149476753597530113&promotionId=1004656&agentNo=CR0082413&businessChannelCode=A02&thirdOrderNoType=1&thirdOrderNo=9991000001_11494001_1788917366784';
   var isMobile=/Mobile|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
   var insuranceLink=isMobile?INSURANCE_LINK_MOBILE:INSURANCE_LINK_DESKTOP;
 
